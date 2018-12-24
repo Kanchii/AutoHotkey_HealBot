@@ -47,6 +47,17 @@ goto verifyVersion
 Return
 
 verifyVersion:
+    UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/version.txt, version_temp.txt
+    FileRead, v_tmp, version_temp.txt
+    FileRead, vers, version.txt
+    if(v_tmp != vers){
+        MsgBox, 0x4, Atualização, Tem uma nova versão disponível. Gostaria de atualizar?
+        IfMsgBox Yes {
+            
+        }
+    } else {
+        MsgBox, Atualizado :D
+    }
 Return
 
 MenuHandler:

@@ -51,13 +51,18 @@ verifyVersion:
     FileRead, v_tmp, version_temp.txt
     FileRead, vers, version.txt
     if(v_tmp != vers){
-        MsgBox, 0x4, Atualização, Tem uma nova versão disponível. Gostaria de atualizar?
-        IfMsgBox Yes {
-            
-        }
+        MsgBox, 0x4, Atualização, Tem uma nova versão disponível. Gostaria de atualizar?, 
+        FileDelete, version_temp.txt
+        IfMsgBox Yes
+            goto UpdateProgram
     } else {
-        MsgBox, Atualizado :D
+        FileDelete, version_temp.txt
     }
+Return
+
+UpdateProgram:
+    UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/Rilador.exe, Rilador.exe
+    UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/version.txt, version.txt
 Return
 
 MenuHandler:

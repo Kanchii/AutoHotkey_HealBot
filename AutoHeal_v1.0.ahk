@@ -45,7 +45,7 @@ Gui Add, Edit, x468 y60 w27 h20 +Disabled vedtLife1 gEdit1Modify
 Gui Add, Edit, x468 y98 w28 h24 +Disabled vedtLife2 gEdit2Modify
 Gui Add, Edit, x469 y142 w26 h22 +Disabled vedtLife3 gEdit3Modify
 Gui Show, w526 h235, Rila Desgraça
-goto verifyVersion
+;goto verifyVersion
 Return
 
 varExist(ByRef v) { ; Requires 1.0.46+
@@ -221,7 +221,7 @@ isBlack(lifeColor){
     RED := 0x0000FF
     BLACK := 0x000000
     
-    first := RGB_Euclidian_Distance(lifeColor, BLUE)
+    first := RGB_Euclidian_Distance(lifeColor, RED)
     second := RGB_Euclidian_Distance(lifeColor, BLACK)
     ; MsgBox, %first% %second%
     if(first < second){
@@ -236,6 +236,7 @@ verifyLife:
 	{
 		Return
 	}
+    
     min_x := min(x1_lifeBar, x2_lifeBar)
     max_x := max(x1_lifeBar, x2_lifeBar)
     min_y := min(y1_lifeBar, y2_lifeBar)
@@ -253,9 +254,39 @@ verifyLife:
             send {%key1%}
         }
     }
+    GuiControlGet, Check2
+    if(Check2 = 1){
+        GuiControlGet, edtLife2
+        life2 := % edtLife2
+        x_pos := min_x + ((max_x - min_x) * life2) / 100.0
+        y_pos := min_y + ((max_y - min_y) * life2) / 100.0
+        ; MsgBox, %x_pos% %y_pos%
+        PixelGetColor, lifeColor, %x_pos%, %y_pos%
+        if(isBlack(lifeColor) = 1){
+            GuiControlGet, key2,, cbxKey2
+            send {%key2%}
+        }
+    }
+    GuiControlGet, Check3
+    if(Check3 = 1){
+        GuiControlGet, edtLife3
+        life3 := % edtLife3
+        x_pos := min_x + ((max_x - min_x) * life3) / 100.0
+        y_pos := min_y + ((max_y - min_y) * life3) / 100.0
+        PixelGetColor, lifeColor, %x_pos%, %y_pos%
+        if(isBlack(lifeColor) = 1){
+            ; MsgBox, Tem que curar
+            GuiControlGet, key3,, cbxKey3
+            send {%key3%}
+        }
+    }
 Return
 
 btn_Start:
+    if(!(varExist(x1_lifeBar) && varExist(x2_lifeBar))){
+        MsgBox, Você precisa setar a posição inicial (Ctrl+1) e final (Ctrl+2) da vida antes
+        return
+    }
     Pause, Toggle, 1
 	If A_IsPaused
 		GuiControl, , startPause, Start

@@ -1,0 +1,1 @@
+# AutoHotkey_HealBot

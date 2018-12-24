@@ -16,34 +16,34 @@ global percentLife1, percentLife2, percentLife3
 global x1_lifeBar, x2_lifeBar, y1_lifeBar, y2_lifeBar
 
 Gui Font, s15 Bold, Tahoma
-Gui Add, Text, x190 y1 w147 h23 +0x200, Rila Desgraça
+Gui Add, Text, x190 y5 w147 h23 +0x200, Rila Desgraça
 Gui Font
-Gui Add, Text, x61 y63 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
-Gui Add, Text, x62 y100 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
-Gui Add, Text, x61 y141 w34 h23 +Disabled +0x200 vtxtKey3, Key 3:
-Gui Add, ComboBox, x95 y62 w55 +Disabled +Uppercase vcbxKey1, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, ComboBox, x95 y99 w55 +Disabled +Uppercase vcbxKey2, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, ComboBox, x94 y140 w57 +Disabled +Uppercase vcbxKey3, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, ComboBox, x194 y62 w136 +Disabled vcbxSpell1, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Add, Text, x162 y60 w34 h21 +Disabled +0x200 vtxtSpell1, Spell:
-Gui Add, Text, x162 y99 w30 h23 +Disabled +0x200 vtxtSpell2, Spell:
-Gui Add, ComboBox, x195 y104 w135 +Disabled vcbxSpell2, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Add, Text, x163 y141 w28 h23 +Disabled +0x200 vtxtSpell3, Spell:
-Gui Add, ComboBox, x195 y143 w134 +Disabled vcbxSpell3, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Add, CheckBox, x28 y65 w18 h23 vCheck1 gCheckBox1
-Gui Add, CheckBox, x28 y100 w18 h23 vCheck2 gCheckBox2
-Gui Add, CheckBox, x28 y140 w26 h23 vCheck3 gCheckBox3
+Gui Add, Text, x50 y63 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
+Gui Add, Text, x50 y100 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
+Gui Add, Text, x50 y137 w33 h23 +Disabled +0x200 vtxtKey3, Key 3:
+Gui Add, ComboBox, x94 y63 w55 +Disabled +Uppercase vcbxKey1, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Add, ComboBox, x94 y100 w55 +Disabled +Uppercase vcbxKey2, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Add, ComboBox, x94 y137 w55 +Disabled +Uppercase vcbxKey3, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Add, ComboBox, x195 y63 w136 +Disabled vcbxSpell1, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Add, Text, x162 y63 w30 h23 +Disabled +0x200 vtxtSpell1, Spell:
+Gui Add, Text, x162 y100 w30 h23 +Disabled +0x200 vtxtSpell2, Spell:
+Gui Add, ComboBox, x195 y100 w136 +Disabled vcbxSpell2, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Add, Text, x162 y137 w30 h23 +Disabled +0x200 vtxtSpell3, Spell:
+Gui Add, ComboBox, x195 y137 w136 +Disabled vcbxSpell3, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Add, CheckBox, x28 y63 w15 h23 vCheck1 gCheckBox1
+Gui Add, CheckBox, x28 y100 w15 h23 vCheck2 gCheckBox2
+Gui Add, CheckBox, x28 y137 w15 h23 vCheck3 gCheckBox3
 Gui Add, Text, x14 y197 w55 h23 +0x200, Timer (ms):
 Gui Add, Edit, x69 y199 w70 h21 vtimer
 Gui Add, Button, x320 y201 w80 h23 +Disabled vstartPause gbtn_Start, &Start
 Gui Add, Button, x408 y200 w80 h23, &Save
 Gui Add, Button, x145 y199 w70 h21 vbtn_Timer gsetTimer, Set Timer
-Gui Add, Slider, x345 y59 w120 h32 +Disabled +Tooltip vsliderLife1 gSlider1Move, 50
-Gui Add, Slider, x346 y101 w120 h32 +Disabled +Tooltip vsliderLife2 gSlider2Move, 50
-Gui Add, Slider, x346 y142 w120 h32 +Disabled +Tooltip vsliderLife3 gSlider3Move, 50
-Gui Add, Edit, x468 y60 w27 h20 +Disabled vedtLife1 gEdit1Modify
-Gui Add, Edit, x468 y98 w28 h24 +Disabled vedtLife2 gEdit2Modify
-Gui Add, Edit, x469 y142 w26 h22 +Disabled vedtLife3 gEdit3Modify
+Gui Add, Slider, x346 y63 w120 h32 +Disabled +Tooltip vsliderLife1 gSlider1Move, 50
+Gui Add, Slider, x346 y100 w120 h32 +Disabled +Tooltip vsliderLife2 gSlider2Move, 50
+Gui Add, Slider, x346 y137 w120 h32 +Disabled +Tooltip vsliderLife3 gSlider3Move, 50
+Gui Add, Edit, x468 y63 w27 h22 +Disabled vedtLife1 gEdit1Modify
+Gui Add, Edit, x468 y100 w27 h22 +Disabled vedtLife2 gEdit2Modify
+Gui Add, Edit, x468 y137 w27 h22 +Disabled vedtLife3 gEdit3Modify
 Gui Show, w526 h235, Rila Desgraça
 goto verifyVersion
 Return
@@ -308,7 +308,9 @@ setTimer:
 		Return
 	} else {
         GuiControl, Enabled, startPause
-		Pause, Toggle, 1
+        If !A_IsPaused
+            Pause, Toggle, 1
+            GuiControl, , startPause, Start
 		SetTimer, verifyLife, %timer%
 	}
 Return

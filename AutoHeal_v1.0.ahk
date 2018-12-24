@@ -15,7 +15,7 @@ global percentLife1, percentLife2, percentLife3
 global x1_lifeBar, x2_lifeBar, y1_lifeBar, y2_lifeBar
 
 Gui Font, s15 Bold, Tahoma
-Gui Add, Text, x190 y1 w147 h23 +0x200, Rila Desgraça
+Gui Add, Text, x190 y1 w160 h23 +0x200, Rila Desgraça 2.0
 Gui Font
 Gui Add, Text, x61 y63 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
 Gui Add, Text, x62 y100 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
@@ -52,7 +52,6 @@ verifyVersion:
     FileRead, vers, version.txt
     if(v_tmp != vers){
         MsgBox, 0x4, Atualização, Tem uma nova versão disponível. Gostaria de atualizar?, 
-        FileDelete, version_temp.txt
         IfMsgBox Yes
             goto UpdateProgram
     } else {
@@ -61,8 +60,17 @@ verifyVersion:
 Return
 
 UpdateProgram:
-    UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/Rilador.exe, Rilador.exe
+    FileRead, v_ants, version.txt
     UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/version.txt, version.txt
+    FileRead, v_depois, version.txt
+    StringTrimRight, v_depois, v_depois, 1
+    arquivo_Depois := "Rilador_" . v_depois . ".exe"
+    MsgBox % arquivo_Depois
+    UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/Rilador.exe, % arquivo_Depois
+    FileDelete, version_temp.txt
+    arquivo_Deletar := "Rilador_" . v_ants . ".exe"
+    FileDelete, % arquivo_Deletar
+    ExitApp
 Return
 
 MenuHandler:

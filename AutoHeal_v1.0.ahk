@@ -72,7 +72,6 @@ UpdateProgram:
     UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/version.txt, version.txt
     FileRead, v_depois, version.txt
     arquivo_Depois := "Rilador_" . v_depois . ".exe"
-    MsgBox, % arquivo_Depois
     UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/Rilador.exe, % arquivo_Depois
     FileDelete, version_temp.txt
     ; arquivo_Deletar := "Rilador_" . v_ants . ".exe"

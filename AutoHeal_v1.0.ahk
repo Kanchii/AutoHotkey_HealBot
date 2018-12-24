@@ -45,7 +45,7 @@ Gui Add, Edit, x468 y60 w27 h20 +Disabled vedtLife1 gEdit1Modify
 Gui Add, Edit, x468 y98 w28 h24 +Disabled vedtLife2 gEdit2Modify
 Gui Add, Edit, x469 y142 w26 h22 +Disabled vedtLife3 gEdit3Modify
 Gui Show, w526 h235, Rila Desgraça
-;goto verifyVersion
+goto verifyVersion
 Return
 
 varExist(ByRef v) { ; Requires 1.0.46+

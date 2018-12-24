@@ -5,10 +5,10 @@
 
 SetWorkingDir %A_ScriptDir%
 
-Menu menuArquivo, Add, Open...`tCtrl+O, MenuHandler
-Menu menuArquivo, Add, Sair`tEsc, MenuHandler
+Menu menuArquivo, Add, Open...`tCtrl+O, MenuAbrir
+Menu menuArquivo, Add, Sair`tEsc, MenuSair
 Menu MenuBar, Add, Arquivo, :menuArquivo
-Menu menuAjuda, Add, Sobre, MenuHandler
+Menu menuAjuda, Add, Sobre, MenuSobre
 Menu MenuBar, Add, Ajuda, :menuAjuda
 Gui Menu, MenuBar
 
@@ -45,7 +45,7 @@ Gui Add, Edit, x468 y60 w27 h20 +Disabled vedtLife1 gEdit1Modify
 Gui Add, Edit, x468 y98 w28 h24 +Disabled vedtLife2 gEdit2Modify
 Gui Add, Edit, x469 y142 w26 h22 +Disabled vedtLife3 gEdit3Modify
 Gui Show, w526 h235, Rila Desgraça
-goto verifyVersion
+; goto verifyVersion
 Return
 
 varExist(ByRef v) { ; Requires 1.0.46+
@@ -74,12 +74,18 @@ UpdateProgram:
     arquivo_Depois := "Rilador_" . v_depois . ".exe"
     UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/Rilador.exe, % arquivo_Depois
     FileDelete, version_temp.txt
-    ; arquivo_Deletar := "Rilador_" . v_ants . ".exe"
-    ; FileDelete, % arquivo_Deletar
     ExitApp
 Return
 
-MenuHandler:
+MenuSair:
+    ExitApp
+Return
+
+MenuAbrir:
+Return
+
+MenuSobre:
+    MsgBox, Auto Healer de Tibia, feito com muita gambiarra e amor`n`n`n                                     Criado por Felipe Weiss '-'
 Return
 
 ^1::

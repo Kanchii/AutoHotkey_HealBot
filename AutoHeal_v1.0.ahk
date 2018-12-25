@@ -5,18 +5,20 @@
 
 SetWorkingDir %A_ScriptDir%
 
-Menu menuArquivo, Add, Open...`tCtrl+O, MenuAbrir
-Menu menuArquivo, Add, Sair`tEsc, MenuSair
+Menu menuArquivo, Add, &Open...`tCtrl+O, MenuAbrir
+Menu menuArquivo, Disable, 1&
+Menu menuArquivo, Add, &Sair`tEsc, MenuSair
 Menu MenuBar, Add, Arquivo, :menuArquivo
-Menu menuAjuda, Add, Sobre, MenuSobre
-Menu MenuBar, Add, Ajuda, :menuAjuda
+Menu menuAjuda, Add, &Sobre, MenuSobre
+Menu MenuBar, Add, &Ajuda, :menuAjuda
 Gui Menu, MenuBar
 
 global percentLife1, percentLife2, percentLife3
 global x1_lifeBar, x2_lifeBar, y1_lifeBar, y2_lifeBar
+global status := 0
 
 Gui Font, s15 Bold, Tahoma
-Gui Add, Text, x190 y5 w147 h23 +0x200, Rila Desgraça
+Gui Add, Text, x190 y5 w147 h25 +0x200, Rila Desgraça
 Gui Font
 Gui Add, Text, x50 y63 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
 Gui Add, Text, x50 y100 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
@@ -34,17 +36,19 @@ Gui Add, CheckBox, x28 y63 w15 h23 vCheck1 gCheckBox1
 Gui Add, CheckBox, x28 y100 w15 h23 vCheck2 gCheckBox2
 Gui Add, CheckBox, x28 y137 w15 h23 vCheck3 gCheckBox3
 Gui Add, Text, x14 y197 w55 h23 +0x200, Timer (ms):
-Gui Add, Edit, x69 y199 w70 h21 vtimer
+Gui Add, Edit, x69 y201 w70 h21 vtimer
 Gui Add, Button, x320 y201 w80 h23 +Disabled vstartPause gbtn_Start, &Start
-Gui Add, Button, x408 y200 w80 h23, &Save
-Gui Add, Button, x145 y199 w70 h21 vbtn_Timer gsetTimer, Set Timer
+Gui Add, Button, x408 y201 w80 h23 +Disabled, &Save
+Gui Add, Button, x145 y201 w70 h21 vbtn_Timer gsetTimer, Set Timer
 Gui Add, Slider, x346 y63 w120 h32 +Disabled +Tooltip vsliderLife1 gSlider1Move, 50
 Gui Add, Slider, x346 y100 w120 h32 +Disabled +Tooltip vsliderLife2 gSlider2Move, 50
 Gui Add, Slider, x346 y137 w120 h32 +Disabled +Tooltip vsliderLife3 gSlider3Move, 50
 Gui Add, Edit, x468 y63 w27 h22 +Disabled vedtLife1 gEdit1Modify
 Gui Add, Edit, x468 y100 w27 h22 +Disabled vedtLife2 gEdit2Modify
 Gui Add, Edit, x468 y137 w27 h22 +Disabled vedtLife3 gEdit3Modify
-Gui Show, w526 h235, Rila Desgraça
+; Gui Add, StatusBar, , Inoperante
+Gui Add, StatusBar, vstatusBar, Faltar definir a posição inicial e final da vida.
+Gui Show, w526 h255, Rila Desgraça
 goto verifyVersion
 Return
 
@@ -89,10 +93,23 @@ MenuSobre:
 Return
 
 ^1::
+    status |= (1 << 0)
+    if(status = 1){
+        GuiControl, , statusBar, Falta definir a posição final da vida.
+    } else if(status = 3){
+        GuiControl, , statusBar, O bot se encontra pausado.
+    }
+
     MouseGetPos, x1_LifeBar, y1_LifeBar
 Return
 
 ^2::
+    status |= (1 << 1)
+    if(status = 2){
+        GuiControl, , statusBar, Falta definir a posição inicial da vida.
+    } else if(status = 3){
+        GuiControl, , statusBar, O bot se encontra pausado.
+    }
     MouseGetPos, x2_LifeBar, y2_LifeBar
 Return
 
@@ -210,9 +227,7 @@ abs(a){
     return a
 }
 
-RGB_Euclidian_Distance( c1, c2 ) ; find the distance between 2 colors
-{ ; function by [VxE], return value range = [0, 441.67295593006372]
-; that just means that any two colors will have a distance less than 442
+RGB_Euclidian_Distance( c1, c2 ) {
    r1 := c1 >> 16
    g1 := c1 >> 8 & 255
    b1 := c1 & 255
@@ -229,7 +244,6 @@ isBlack(lifeColor){
     
     first := RGB_Euclidian_Distance(lifeColor, RED)
     second := RGB_Euclidian_Distance(lifeColor, BLACK)
-    ; MsgBox, %first% %second%
     if(first < second){
         return 2
     }
@@ -290,14 +304,21 @@ Return
 
 btn_Start:
     if(!(varExist(x1_lifeBar) && varExist(x2_lifeBar))){
-        MsgBox, Você precisa setar a posição inicial (Ctrl+1) e final (Ctrl+2) da vida antes
+        MsgBox, Você precisa setar a posição inicial (Ctrl+1) e final (Ctrl+2) da vida antes.
         return
     }
     Pause, Toggle, 1
-	If A_IsPaused
-		GuiControl, , startPause, Start
-	else
-		GuiControl, , startPause, Pause
+
+    if A_IsPaused {
+        GuiControl, , statusBar, O bot se encontra pausado.
+        GuiControl, , startPause, Start
+        TrayTip, , Bot pausado, , 0x1
+    } else {
+        GuiControl, , statusBar, O bot está em execução.
+        GuiControl, , startPause, Pause
+        TrayTip, , Bot iniciado, , 0x1
+    }
+		
 	Return
 Return
 

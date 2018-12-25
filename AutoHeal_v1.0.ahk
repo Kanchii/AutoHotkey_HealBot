@@ -17,36 +17,41 @@ global percentLife1, percentLife2, percentLife3
 global x1_lifeBar, x2_lifeBar, y1_lifeBar, y2_lifeBar
 global status := 0
 
+global x_txtKey1 := 50
+global y_txtKey1 := 63
+
 Gui Font, s15 Bold, Tahoma
 Gui Add, Text, x190 y5 w147 h25 +0x200, Rila Desgraça
 Gui Font
-Gui Add, Text, x50 y63 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
-Gui Add, Text, x50 y100 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
-Gui Add, Text, x50 y137 w33 h23 +Disabled +0x200 vtxtKey3, Key 3:
-Gui Add, ComboBox, x94 y63 w55 +Disabled +Uppercase vcbxKey1, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, ComboBox, x94 y100 w55 +Disabled +Uppercase vcbxKey2, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, ComboBox, x94 y137 w55 +Disabled +Uppercase vcbxKey3, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, ComboBox, x195 y63 w136 +Disabled vcbxSpell1, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Add, Text, x162 y63 w30 h23 +Disabled +0x200 vtxtSpell1, Spell:
-Gui Add, Text, x162 y100 w30 h23 +Disabled +0x200 vtxtSpell2, Spell:
-Gui Add, ComboBox, x195 y100 w136 +Disabled vcbxSpell2, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Add, Text, x162 y137 w30 h23 +Disabled +0x200 vtxtSpell3, Spell:
-Gui Add, ComboBox, x195 y137 w136 +Disabled vcbxSpell3, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Add, CheckBox, x28 y63 w15 h23 vCheck1 gCheckBox1
-Gui Add, CheckBox, x28 y100 w15 h23 vCheck2 gCheckBox2
-Gui Add, CheckBox, x28 y137 w15 h23 vCheck3 gCheckBox3
+Gui Add, Text, x50 y43 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
+Gui Add, Text, x50 y80 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
+Gui Add, Text, x50 y117 w33 h23 +Disabled +0x200 vtxtKey3, Key 3:
+Gui Add, ComboBox, x94 y43 w55 +Disabled +Uppercase vcbxKey1, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Add, ComboBox, x94 y80 w55 +Disabled +Uppercase vcbxKey2, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Add, ComboBox, x94 y117 w55 +Disabled +Uppercase vcbxKey3, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Add, ComboBox, x195 y43 w136 +Disabled vcbxSpell1, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Add, Text, x162 y43 w30 h23 +Disabled +0x200 vtxtSpell1, Spell:
+Gui Add, Text, x162 y80 w30 h23 +Disabled +0x200 vtxtSpell2, Spell:
+Gui Add, ComboBox, x195 y80 w136 +Disabled vcbxSpell2, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Add, Text, x162 y117 w30 h23 +Disabled +0x200 vtxtSpell3, Spell:
+Gui Add, ComboBox, x195 y117 w136 +Disabled vcbxSpell3, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Add, CheckBox, x28 y43 w15 h23 vCheck1 gCheckBox1
+Gui Add, CheckBox, x28 y80 w15 h23 vCheck2 gCheckBox2
+Gui Add, CheckBox, x28 y117 w15 h23 vCheck3 gCheckBox3
 Gui Add, Text, x14 y197 w55 h23 +0x200, Timer (ms):
 Gui Add, Edit, x69 y201 w70 h21 vtimer
 Gui Add, Button, x320 y201 w80 h23 +Disabled vstartPause gbtn_Start, &Start
 Gui Add, Button, x408 y201 w80 h23 +Disabled, &Save
 Gui Add, Button, x145 y201 w70 h21 vbtn_Timer gsetTimer, Set Timer
-Gui Add, Slider, x346 y63 w120 h32 +Disabled +Tooltip vsliderLife1 gSlider1Move, 50
-Gui Add, Slider, x346 y100 w120 h32 +Disabled +Tooltip vsliderLife2 gSlider2Move, 50
-Gui Add, Slider, x346 y137 w120 h32 +Disabled +Tooltip vsliderLife3 gSlider3Move, 50
-Gui Add, Edit, x468 y63 w27 h22 +Disabled vedtLife1 gEdit1Modify
-Gui Add, Edit, x468 y100 w27 h22 +Disabled vedtLife2 gEdit2Modify
-Gui Add, Edit, x468 y137 w27 h22 +Disabled vedtLife3 gEdit3Modify
-; Gui Add, StatusBar, , Inoperante
+Gui Add, Slider, x346 y43 w120 h32 +Disabled +Tooltip vsliderLife1 gSlider1Move, 50
+Gui Add, Slider, x346 y80 w120 h32 +Disabled +Tooltip vsliderLife2 gSlider2Move, 50
+Gui Add, Slider, x346 y117 w120 h32 +Disabled +Tooltip vsliderLife3 gSlider3Move, 50
+Gui Add, Edit, x468 y43 w27 h22 +Disabled vedtLife1 gEdit1Modify
+Gui Add, Edit, x468 y80 w27 h22 +Disabled vedtLife2 gEdit2Modify
+Gui Add, Edit, x468 y117 w27 h22 +Disabled vedtLife3 gEdit3Modify
+Gui Add, CheckBox, x28 y154 w15 h23 vcheckParalyze gCheckParalyze
+Gui Add, Text, x50 y154 w65 h23 +Disabled +0x200 vtxtParalyze, Anti-Paralyze
+Gui Add, ComboBox, x120 y154 w55 +Disabled +Uppercase vcbxKeyParalyze, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
 Gui Add, StatusBar, vstatusBar, Faltar definir a posição inicial e final da vida.
 Gui Show, w526 h255, Rila Desgraça
 goto verifyVersion
@@ -172,6 +177,17 @@ CheckBox3:
     }
 Return
 
+CheckParalyze:
+    GuiControlGet, checkParalyze
+    if(checkParalyze = 0){
+        GuiControl, Disable, txtParalyze
+        GuiControl, Disable, cbxKeyParalyze
+    } else {
+        GuiControl, Enabled, txtParalyze
+        GuiControl, Enabled, cbxKeyParalyze
+    }
+Return
+
 Slider1Move:
     Gui, Submit, nohide
     GuiControl,, edtLife1, %sliderLife1%
@@ -217,7 +233,7 @@ max(num*){
 }
 
 ^x::
-    goto verifyLife
+    goto run
 Return
 
 abs(a){
@@ -250,7 +266,7 @@ isBlack(lifeColor){
     return 1
 }
 
-verifyLife:
+run:
     WinGetTitle, windowName, A
 	IfNotInString, windowName, Tibia
 	{
@@ -300,6 +316,17 @@ verifyLife:
             send {%key3%}
         }
     }
+    GuiControlGet, checkParalyze
+    if(checkParalyze = 1){
+        WinGetPos, , , win_width, win_height, A
+        ImageSearch, pos_x_image, pos_Y_image, 0, 0, %win_width%, %win_height%, images\paralyze.gif
+        if(ErrorLevel = 0){
+            GuiControlGet, key_anti_paralyze, , cbxKeyParalyze
+            send {%key_anti_paralyze%}
+            ; MsgBox, Teste
+        }
+    }
+    
 Return
 
 btn_Start:
@@ -332,7 +359,7 @@ setTimer:
         If !A_IsPaused
             Pause, Toggle, 1
             GuiControl, , startPause, Start
-		SetTimer, verifyLife, %timer%
+		SetTimer, run, %timer%
 	}
 Return
 

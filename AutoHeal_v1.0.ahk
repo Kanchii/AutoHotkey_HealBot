@@ -17,8 +17,7 @@ global percentLife1, percentLife2, percentLife3
 global x1_lifeBar, x2_lifeBar, y1_lifeBar, y2_lifeBar
 global status := 0
 
-global x_txtKey1 := 50
-global y_txtKey1 := 63
+global paralyze_x_1, paralyze_y_1, paralyze_x_2, paralyze_y_2
 
 Gui Font, s15 Bold, Tahoma
 Gui Add, Text, x190 y5 w147 h25 +0x200, Rila Desgraça
@@ -52,6 +51,7 @@ Gui Add, Edit, x468 y117 w27 h22 +Disabled vedtLife3 gEdit3Modify
 Gui Add, CheckBox, x28 y154 w15 h23 vcheckParalyze gCheckParalyze
 Gui Add, Text, x50 y154 w65 h23 +Disabled +0x200 vtxtParalyze, Anti-Paralyze
 Gui Add, ComboBox, x120 y154 w55 +Disabled +Uppercase vcbxKeyParalyze, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Add, Text, x185 y154 w80 h23 +0x200 vtxtStatusParalyze +Disabled, Não configurado
 Gui Add, StatusBar, vstatusBar, Faltar definir a posição inicial e final da vida.
 Gui Show, w526 h255, Rila Desgraça
 goto verifyVersion
@@ -118,6 +118,20 @@ Return
     MouseGetPos, x2_LifeBar, y2_LifeBar
 Return
 
++^1::
+    MouseGetPos, paralyze_x_1, paralyze_y_1
+    if(varExist(paralyze_x_2)){
+        GuiControl, , txtStatusParalyze, Configurado
+    }
+Return
+
++^2::
+    MouseGetPos, paralyze_x_2, paralyze_y_2
+    if(varExist(paralyze_x_1)){
+        GuiControl, , txtStatusParalyze, Configurado
+    }
+Return
+
 CheckBox1:
     GuiControlGet, Check1
     if(Check1 = 0){
@@ -182,9 +196,11 @@ CheckParalyze:
     if(checkParalyze = 0){
         GuiControl, Disable, txtParalyze
         GuiControl, Disable, cbxKeyParalyze
+        GuiControl, Disable, txtStatusParalyze
     } else {
         GuiControl, Enabled, txtParalyze
         GuiControl, Enabled, cbxKeyParalyze
+        GuiControl, Enabled, txtStatusParalyze
     }
 Return
 
@@ -234,6 +250,12 @@ max(num*){
 
 ^x::
     goto run
+Return
+
+^z::
+    MouseGetPos, x, y
+    PixelGetColor, pixelColor, %x%, %y%
+    MsgBox, %pixelColor%
 Return
 
 abs(a){
@@ -318,12 +340,10 @@ run:
     }
     GuiControlGet, checkParalyze
     if(checkParalyze = 1){
-        WinGetPos, , , win_width, win_height, A
-        ImageSearch, pos_x_image, pos_Y_image, 0, 0, %win_width%, %win_height%, images\paralyze.gif
+        PixelSearch, pos_x_image, pos_Y_image, %paralyze_x_1%, %paralyze_y_1%, %paralyze_x_2%, %paralyze_y_2%, 0x0000FF, 2, Fast ;images\paralyze.png
         if(ErrorLevel = 0){
             GuiControlGet, key_anti_paralyze, , cbxKeyParalyze
             send {%key_anti_paralyze%}
-            ; MsgBox, Teste
         }
     }
     

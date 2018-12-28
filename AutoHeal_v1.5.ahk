@@ -3,8 +3,8 @@
 #SingleInstance Force
 #InstallKeybdHook
 
-CoordMode, Mouse, Screen ; Required: change coord mode to screen vs relative.
-CoordMode, Pixel, Screen ; Required: change coord mode to screen vs relative.
+CoordMode, Mouse ; Required: change coord mode to screen vs relative.
+CoordMode, Pixel ; Required: change coord mode to screen vs relative.
 
 SetWorkingDir %A_ScriptDir%
 
@@ -187,7 +187,7 @@ Return
     LetUserSelectRect(x1_lifeBar, y1_lifeBar, x2_lifeBar, y2_lifeBar)
     y_med := (y1_lifeBar + y2_lifeBar) / 2
     
-    GuiControl, , statusBar, O bot se encontra pausado.
+    GuiControl, Principal:, statusBar, O bot se encontra pausado.
     TrayTip, , Life setado com sucesso!, , 0x1
 Return
 
@@ -221,7 +221,7 @@ Return
         Return
 	}
     LetUserSelectRect(paralyze_x_1, paralyze_y_1, paralyze_x_2, paralyze_y_2)
-    GuiControl, , txtStatusParalyze, Configurado
+    GuiControl, Principal:, txtStatusParalyze, Configurado
     TrayTip, , Anti-Paralyze setado com sucesso!, , 0x1
 Return
 
@@ -242,105 +242,105 @@ Return
 Return
 */
 CheckBox1:
-    GuiControlGet, Check1
+    GuiControlGet, Check1, Principal:
     if(Check1 = 0){
-        GuiControl, Disable, txtKey1
-        GuiControl, Disable, cbxKey1
-        ;GuiControl, Disable, txtSpell1
-        ;GuiControl, Disable, cbxSpell1
-        GuiControl, Disable, sliderLife1
-        GuiControl, Disable, edtLife1
+        GuiControl, Principal:Disable, txtKey1
+        GuiControl, Principal:Disable, cbxKey1
+        ;GuiControl, Principal:Disable, txtSpell1
+        ;GuiControl, Principal:Disable, cbxSpell1
+        GuiControl, Principal:Disable, sliderLife1
+        GuiControl, Principal:Disable, edtLife1
     } else {
-        GuiControl, Enabled, txtKey1
-        GuiControl, Enabled, cbxKey1
-        ;GuiControl, Enabled, txtSpell1
-        ;GuiControl, Enabled, cbxSpell1
-        GuiControl, Enabled, sliderLife1
-        GuiControl, Enabled, edtLife1
+        GuiControl, Principal:Enabled, txtKey1
+        GuiControl, Principal:Enabled, cbxKey1
+        ;GuiControl, Principal:Enabled, txtSpell1
+        ;GuiControl, Principal:Enabled, cbxSpell1
+        GuiControl, Principal:Enabled, sliderLife1
+        GuiControl, Principal:Enabled, edtLife1
     }
 Return
 
 
 CheckBox2:
-    GuiControlGet, Check2
+    GuiControlGet, Check2, Principal:
     if(Check2 = 0){
-        GuiControl, Disable, txtKey2
-        GuiControl, Disable, cbxKey2
-        ;GuiControl, Disable, txtSpell2
-        ;GuiControl, Disable, cbxSpell2
-        GuiControl, Disable, sliderLife2
-        GuiControl, Disable, edtLife2
+        GuiControl, Principal:Disable, txtKey2
+        GuiControl, Principal:Disable, cbxKey2
+        ;GuiControl, Principal:Disable, txtSpell2
+        ;GuiControl, Principal:Disable, cbxSpell2
+        GuiControl, Principal:Disable, sliderLife2
+        GuiControl, Principal:Disable, edtLife2
     } else {
-        GuiControl, Enabled, txtKey2
-        GuiControl, Enabled, cbxKey2
-        ;GuiControl, Enabled, txtSpell2
-        ;GuiControl, Enabled, cbxSpell2
-        GuiControl, Enabled, sliderLife2
-        GuiControl, Enabled, edtLife2
+        GuiControl, Principal:Enabled, txtKey2
+        GuiControl, Principal:Enabled, cbxKey2
+        ;GuiControl, Principal:Enabled, txtSpell2
+        ;GuiControl, Principal:Enabled, cbxSpell2
+        GuiControl, Principal:Enabled, sliderLife2
+        GuiControl, Principal:Enabled, edtLife2
     }
 Return
 
 
 CheckBox3:
-    GuiControlGet, Check3
+    GuiControlGet, Check3, Principal:
     if(Check3 = 0){
-        GuiControl, Disable, txtKey3
-        GuiControl, Disable, cbxKey3
-        ;GuiControl, Disable, txtSpell3
-        ;GuiControl, Disable, cbxSpell3
-        GuiControl, Disable, sliderLife3
-        GuiControl, Disable, edtLife3
+        GuiControl, Principal:Disable, txtKey3
+        GuiControl, Principal:Disable, cbxKey3
+        ;GuiControl, Principal:Disable, txtSpell3
+        ;GuiControl, Principal:Disable, cbxSpell3
+        GuiControl, Principal:Disable, sliderLife3
+        GuiControl, Principal:Disable, edtLife3
     } else {
-        GuiControl, Enabled, txtKey3
-        GuiControl, Enabled, cbxKey3
-        ;GuiControl, Enabled, txtSpell3
-        ;GuiControl, Enabled, cbxSpell3
-        GuiControl, Enabled, sliderLife3
-        GuiControl, Enabled, edtLife3
+        GuiControl, Principal:Enabled, txtKey3
+        GuiControl, Principal:Enabled, cbxKey3
+        ;GuiControl, Principal:Enabled, txtSpell3
+        ;GuiControl, Principal:Enabled, cbxSpell3
+        GuiControl, Principal:Enabled, sliderLife3
+        GuiControl, Principal:Enabled, edtLife3
     }
 Return
 
 CheckParalyze:
-    GuiControlGet, checkParalyze
+    GuiControlGet, checkParalyze, Principal:
     if(checkParalyze = 0){
-        GuiControl, Disable, txtParalyze
-        GuiControl, Disable, cbxKeyParalyze
-        GuiControl, Disable, txtStatusParalyze
+        GuiControl, Principal:Disable, txtParalyze
+        GuiControl, Principal:Disable, cbxKeyParalyze
+        GuiControl, Principal:Disable, txtStatusParalyze
     } else {
-        GuiControl, Enabled, txtParalyze
-        GuiControl, Enabled, cbxKeyParalyze
-        GuiControl, Enabled, txtStatusParalyze
+        GuiControl, Principal:Enabled, txtParalyze
+        GuiControl, Principal:Enabled, cbxKeyParalyze
+        GuiControl, Principal:Enabled, txtStatusParalyze
     }
 Return
 
 Slider1Move:
-    Gui, Submit, nohide
-    GuiControl,, edtLife1, %sliderLife1%
+    Gui, Principal:Submit, nohide
+    GuiControl, Principal:, edtLife1, %sliderLife1%
 Return
 
 Slider2Move:
-    Gui, Submit, nohide
-    GuiControl,, edtLife2, %sliderLife2%
+    Gui, Principal:Submit, nohide
+    GuiControl, Principal:, edtLife2, %sliderLife2%
 Return
 
 Slider3Move:
-    Gui, Submit, nohide
-    GuiControl,, edtLife3, %sliderLife3%
+    Gui, Principal:Submit, nohide
+    GuiControl, Principal:, edtLife3, %sliderLife3%
 Return
 
 Edit1Modify:
-    Gui, Submit, nohide
-    GuiControl,, sliderLife1, %edtLife1%
+    Gui, Principal:Submit, nohide
+    GuiControl, Principal:, sliderLife1, %edtLife1%
 Return
 
 Edit2Modify:
-    Gui, Submit, nohide
-    GuiControl,, sliderLife2, %edtLife2%
+    Gui, Principal:Submit, nohide
+    GuiControl, Principal:, sliderLife2, %edtLife2%
 Return
 
 Edit3Modify:
-    Gui, Submit, nohide
-    GuiControl,, sliderLife3, %edtLife3%
+    Gui, Principal:Submit, nohide
+    GuiControl, Principal:, sliderLife3, %edtLife3%
 Return
 
 min(num*){
@@ -357,17 +357,17 @@ max(num*){
 	return max
 }
 
-
+/*
 ^x::
     goto run
 Return
 
 ^z::
     MouseGetPos, x, y
-    PixelGetColor, pixelColor, %x%, %y%
+    PixelGetColor, pixelColor, %x%, %y%, RGB
     MsgBox, %pixelColor%
 Return
-
+*/
 abs(a){
     if(a < 0){
         return (-a)
@@ -415,25 +415,22 @@ run:
     y_med := (y1_lifeBar + y2_lifeBar) / 2
     ;min_y := min(y1_lifeBar, y2_lifeBar)
     ;max_y := max(y1_lifeBar, y2_lifeBar)
-    GuiControlGet, Check1
+    GuiControlGet, Check1, Principal:
     if(Check1 = 1){
-        GuiControlGet, edtLife1
+        GuiControlGet, edtLife1, Principal:
         life1 := % edtLife1
         x_pos := min_x + ((max_x - min_x) * life1) / 100.0
         ;y_pos := min_y + ((max_y - min_y) * life1) / 100.0
         y_pos := y_med
         PixelGetColor, lifeColor, x_pos, y_pos, RGB
-        MouseMove, x_pos, y_pos
-        MsgBox, %lifeColor%
         if(isBlack(lifeColor) = 1){
-            ; MsgBox, Tem que curar
-            GuiControlGet, key1,, cbxKey1
+            GuiControlGet, key1, Principal:, cbxKey1
             send {%key1%}
         }
     }
-    GuiControlGet, Check2
+    GuiControlGet, Check2, Principal:
     if(Check2 = 1){
-        GuiControlGet, edtLife2
+        GuiControlGet, edtLife2, Principal:
         life2 := % edtLife2
         x_pos := min_x + ((max_x - min_x) * life2) / 100.0
         ;y_pos := min_y + ((max_y - min_y) * life2) / 100.0
@@ -441,13 +438,13 @@ run:
         ; MsgBox, %x_pos% %y_pos%
         PixelGetColor, lifeColor, %x_pos%, %y_pos%, RGB
         if(isBlack(lifeColor) = 1){
-            GuiControlGet, key2,, cbxKey2
+            GuiControlGet, key2, Principal:, cbxKey2
             send {%key2%}
         }
     }
-    GuiControlGet, Check3
+    GuiControlGet, Check3, Principal:
     if(Check3 = 1){
-        GuiControlGet, edtLife3
+        GuiControlGet, edtLife3, Principal:
         life3 := % edtLife3
         x_pos := min_x + ((max_x - min_x) * life3) / 100.0
         ;y_pos := min_y + ((max_y - min_y) * life3) / 100.0
@@ -455,15 +452,15 @@ run:
         PixelGetColor, lifeColor, %x_pos%, %y_pos%, RGB
         if(isBlack(lifeColor) = 1){
             ; MsgBox, Tem que curar
-            GuiControlGet, key3,, cbxKey3
+            GuiControlGet, key3, Principal:, cbxKey3
             send {%key3%}
         }
     }
-    GuiControlGet, checkParalyze
+    GuiControlGet, checkParalyze, Principal:
     if(checkParalyze = 1){
         PixelSearch, pos_x_image, pos_Y_image, %paralyze_x_1%, %paralyze_y_1%, %paralyze_x_2%, %paralyze_y_2%, 0x0000FF, 2, Fast ;images\paralyze.png
         if(ErrorLevel = 0){
-            GuiControlGet, key_anti_paralyze, , cbxKeyParalyze
+            GuiControlGet, key_anti_paralyze, Principal:, cbxKeyParalyze
             send {%key_anti_paralyze%}
         }
     }
@@ -475,17 +472,17 @@ btn_Start:
         MsgBox, Você precisa setar a posição inicial (Ctrl+1) e final (Ctrl+2) da vida antes.
         return
     }
-    Pause, Toggle, 1
-    /*if(status = 0){
+    ; Pause, Toggle, 1
+    if(status = 0){
         status := 1
         SetTimer, run, %timer%
     } else {
         status := 0
         SetTimer, run, off
     }
-    */
+    
 
-    if A_IsPaused {
+    if(status = 0) {
         GuiControl, , statusBar, O bot se encontra pausado.
         GuiControl, , startPause, Start
         TrayTip, , Bot pausado, , 0x1
@@ -499,17 +496,18 @@ btn_Start:
 Return
 
 setTimer:
-	GuiControlGet, timer
-	if timer = 
-	{
+	GuiControlGet, timer, Principal:
+	if(timer = ){
 		Return
 	} else {
-        GuiControl, Enabled, startPause
+        GuiControl, Principal:Enabled, startPause
+        /*
         if !A_IsPaused {
-            GuiControl, , startPause, Start
+            GuiControl, Principal:, startPause, Start
             Pause, Toggle, 1
         }
 		SetTimer, run, %timer%
+        */
 	}
 Return
 

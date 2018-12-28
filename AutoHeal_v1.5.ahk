@@ -9,12 +9,15 @@ CoordMode, Pixel, Screen ; Required: change coord mode to screen vs relative.
 SetWorkingDir %A_ScriptDir%
 
 Menu menuArquivo, Add, &Open...`tCtrl+O, MenuAbrir
-Menu menuArquivo, Disable, 1&
+Menu menuArquivo, Disable, 1&
+Menu menuArquivo, Add, &Configurações..., MenuConfiguracao
+Menu menuArquivo, Disable, 2&
+
 Menu menuArquivo, Add, &Sair`tEsc, MenuSair
 Menu MenuBar, Add, Arquivo, :menuArquivo
 Menu menuAjuda, Add, &Sobre, MenuSobre
 Menu MenuBar, Add, &Ajuda, :menuAjuda
-Gui Menu, MenuBar
+Gui Principal: Menu, MenuBar
 
 global percentLife1, percentLife2, percentLife3
 global x1_lifeBar, x2_lifeBar, y1_lifeBar, y2_lifeBar
@@ -22,41 +25,53 @@ global status := 0
 
 global paralyze_x_1, paralyze_y_1, paralyze_x_2, paralyze_y_2
 
-Gui Font, s15 Bold, Tahoma
-Gui Add, Text, x190 y5 w147 h25 +0x200, Rila Desgraça
-Gui Font
-Gui Add, Text, x50 y43 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
-Gui Add, Text, x50 y80 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
-Gui Add, Text, x50 y117 w33 h23 +Disabled +0x200 vtxtKey3, Key 3:
-Gui Add, ComboBox, x94 y43 w55 +Disabled +Uppercase vcbxKey1, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, ComboBox, x94 y80 w55 +Disabled +Uppercase vcbxKey2, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, ComboBox, x94 y117 w55 +Disabled +Uppercase vcbxKey3, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, ComboBox, x195 y43 w136 +Disabled vcbxSpell1, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Add, Text, x162 y43 w30 h23 +Disabled +0x200 vtxtSpell1, Spell:
-Gui Add, Text, x162 y80 w30 h23 +Disabled +0x200 vtxtSpell2, Spell:
-Gui Add, ComboBox, x195 y80 w136 +Disabled vcbxSpell2, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Add, Text, x162 y117 w30 h23 +Disabled +0x200 vtxtSpell3, Spell:
-Gui Add, ComboBox, x195 y117 w136 +Disabled vcbxSpell3, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Add, CheckBox, x28 y43 w15 h23 vCheck1 gCheckBox1
-Gui Add, CheckBox, x28 y80 w15 h23 vCheck2 gCheckBox2
-Gui Add, CheckBox, x28 y117 w15 h23 vCheck3 gCheckBox3
-Gui Add, Text, x14 y197 w55 h23 +0x200, Timer (ms):
-Gui Add, Edit, x69 y201 w70 h21 vtimer
-Gui Add, Button, x320 y201 w80 h23 +Disabled vstartPause gbtn_Start, &Start
-Gui Add, Button, x408 y201 w80 h23 +Disabled, &Save
-Gui Add, Button, x145 y201 w70 h21 vbtn_Timer gsetTimer, Set Timer
-Gui Add, Slider, x346 y43 w120 h32 +Disabled +Tooltip vsliderLife1 gSlider1Move, 50
-Gui Add, Slider, x346 y80 w120 h32 +Disabled +Tooltip vsliderLife2 gSlider2Move, 50
-Gui Add, Slider, x346 y117 w120 h32 +Disabled +Tooltip vsliderLife3 gSlider3Move, 50
-Gui Add, Edit, x468 y43 w27 h22 +Disabled vedtLife1 gEdit1Modify
-Gui Add, Edit, x468 y80 w27 h22 +Disabled vedtLife2 gEdit2Modify
-Gui Add, Edit, x468 y117 w27 h22 +Disabled vedtLife3 gEdit3Modify
-Gui Add, CheckBox, x28 y154 w15 h23 vcheckParalyze gCheckParalyze
-Gui Add, Text, x50 y154 w65 h23 +Disabled +0x200 vtxtParalyze, Anti-Paralyze
-Gui Add, ComboBox, x120 y154 w55 +Disabled +Uppercase vcbxKeyParalyze, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Add, Text, x185 y154 w80 h23 +0x200 vtxtStatusParalyze +Disabled, Não configurado
-Gui Add, StatusBar, vstatusBar, Faltar definir a posição inicial e final da vida.
-Gui Show, w526 h255, Rila Desgraça
+Gui Principal: Font, s15 Bold, Tahoma
+Gui Principal: Add, Text, x190 y5 w147 h25 +0x200, Rila Desgraça
+Gui Principal: Font
+Gui Principal: Add, Text, x50 y43 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
+Gui Principal: Add, Text, x50 y80 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
+Gui Principal: Add, Text, x50 y117 w33 h23 +Disabled +0x200 vtxtKey3, Key 3:
+Gui Principal: Add, ComboBox, x94 y43 w55 +Disabled +Uppercase vcbxKey1, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, ComboBox, x94 y80 w55 +Disabled +Uppercase vcbxKey2, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, ComboBox, x94 y117 w55 +Disabled +Uppercase vcbxKey3, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, ComboBox, x195 y43 w136 +Disabled vcbxSpell1, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Principal: Add, Text, x162 y43 w30 h23 +Disabled +0x200 vtxtSpell1, Spell:
+Gui Principal: Add, Text, x162 y80 w30 h23 +Disabled +0x200 vtxtSpell2, Spell:
+Gui Principal: Add, ComboBox, x195 y80 w136 +Disabled vcbxSpell2, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Principal: Add, Text, x162 y117 w30 h23 +Disabled +0x200 vtxtSpell3, Spell:
+Gui Principal: Add, ComboBox, x195 y117 w136 +Disabled vcbxSpell3, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Principal: Add, CheckBox, x28 y43 w15 h23 vCheck1 gCheckBox1
+Gui Principal: Add, CheckBox, x28 y80 w15 h23 vCheck2 gCheckBox2
+Gui Principal: Add, CheckBox, x28 y117 w15 h23 vCheck3 gCheckBox3
+Gui Principal: Add, Text, x14 y197 w55 h23 +0x200, Timer (ms):
+Gui Principal: Add, Edit, x69 y201 w70 h21 vtimer
+Gui Principal: Add, Button, x320 y201 w80 h23 +Disabled vstartPause gbtn_Start, &Start
+Gui Principal: Add, Button, x408 y201 w80 h23 +Disabled, &Save
+Gui Principal: Add, Button, x145 y201 w70 h21 vbtn_Timer gsetTimer, Set Timer
+Gui Principal: Add, Slider, x346 y43 w120 h32 +Disabled +Tooltip vsliderLife1 gSlider1Move, 50
+Gui Principal: Add, Slider, x346 y80 w120 h32 +Disabled +Tooltip vsliderLife2 gSlider2Move, 50
+Gui Principal: Add, Slider, x346 y117 w120 h32 +Disabled +Tooltip vsliderLife3 gSlider3Move, 50
+Gui Principal: Add, Edit, x468 y43 w27 h22 +Disabled vedtLife1 gEdit1Modify
+Gui Principal: Add, Edit, x468 y80 w27 h22 +Disabled vedtLife2 gEdit2Modify
+Gui Principal: Add, Edit, x468 y117 w27 h22 +Disabled vedtLife3 gEdit3Modify
+Gui Principal: Add, CheckBox, x28 y154 w15 h23 vcheckParalyze gCheckParalyze
+Gui Principal: Add, Text, x50 y154 w65 h23 +Disabled +0x200 vtxtParalyze, Anti-Paralyze
+Gui Principal: Add, ComboBox, x120 y154 w55 +Disabled +Uppercase vcbxKeyParalyze, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, Text, x185 y154 w80 h23 +0x200 vtxtStatusParalyze +Disabled, Não configurado
+Gui Principal: Add, StatusBar, vstatusBar, Faltar definir a posição inicial e final da vida.
+
+Gui Configuracao: Font, s16 Bold, Tahoma
+Gui Configuracao: Add, Text, x28 y12 w154 h31 +0x200, Configurações
+Gui Configuracao: Font
+Gui Configuracao: Add, Text, x18 y67 w65 h23 +0x200, Setar a vida:
+Gui Configuracao: Add, Radio, x100 y54 w120 h23, Point-and-Click
+Gui Configuracao: Add, Radio, x100 y84 w133 h23, Seleção com retângulo
+Gui Configuracao: Add, Text, x55 y128 w28 h23 +0x200, Som:
+Gui Configuracao: Add, Slider, x95 y130 w203 h32, 50
+Gui Configuracao: Add, Button, x135 y189 w80 h23, &Salvar
+Gui Configuracao: Add, Button, x229 y189 w80 h23, &Sair
+
+Gui Principal: Show, w526 h255, Rila Desgraça
 goto verifyVersion
 Return
 
@@ -154,8 +169,12 @@ Return
 MenuAbrir:
 Return
 
+MenuConfiguracao:
+    Gui Configuracao: Show, w319 h227, Configurações
+Return
+
 MenuSobre:
-    MsgBox, Eae bando de sem vida <3`n`n`n                                     Criado por Felipe Weiss
+    MsgBox, Eae bando de sem vida <3`n`n`n                                     Programa criado por Felipe Weiss
 Return
 
 ^1::
@@ -194,7 +213,7 @@ Return
     MouseGetPos, x2_LifeBar, y2_LifeBar
 Return
 */
-^2::
+^+1::
     WinGetTitle, windowName, A
 	IfNotInString, windowName, Tibia
 	{
@@ -338,7 +357,7 @@ max(num*){
 	return max
 }
 
-/*
+
 ^x::
     goto run
 Return
@@ -348,7 +367,7 @@ Return
     PixelGetColor, pixelColor, %x%, %y%
     MsgBox, %pixelColor%
 Return
-*/
+
 abs(a){
     if(a < 0){
         return (-a)
@@ -404,6 +423,8 @@ run:
         ;y_pos := min_y + ((max_y - min_y) * life1) / 100.0
         y_pos := y_med
         PixelGetColor, lifeColor, x_pos, y_pos, RGB
+        MouseMove, x_pos, y_pos
+        MsgBox, %lifeColor%
         if(isBlack(lifeColor) = 1){
             ; MsgBox, Tem que curar
             GuiControlGet, key1,, cbxKey1
@@ -455,6 +476,14 @@ btn_Start:
         return
     }
     Pause, Toggle, 1
+    /*if(status = 0){
+        status := 1
+        SetTimer, run, %timer%
+    } else {
+        status := 0
+        SetTimer, run, off
+    }
+    */
 
     if A_IsPaused {
         GuiControl, , statusBar, O bot se encontra pausado.
@@ -476,9 +505,10 @@ setTimer:
 		Return
 	} else {
         GuiControl, Enabled, startPause
-        If !A_IsPaused
-            Pause, Toggle, 1
+        if !A_IsPaused {
             GuiControl, , startPause, Start
+            Pause, Toggle, 1
+        }
 		SetTimer, run, %timer%
 	}
 Return

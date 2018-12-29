@@ -572,7 +572,7 @@ run:
     GuiControlGet, checkAutoHaste, Principal:
     if(checkAutoHaste = 1){
         ;ImageSearch, pos_x_image, pos_y_image, %buff_x_1%, %buff_y_1%, %buff_x_2%, %buff_y_2%, Imagens\\haste_2.png
-        PixelSearch, pos_x_image, pos_y_image, %buff_x_1%, %buff_y_1%, %buff_x_2%, %buff_y_2%, 0x508BB0, 2, Fast
+        PixelSearch, pos_x_image, pos_y_image, %buff_x_1%, %buff_y_1%, %buff_x_2%, %buff_y_2%, 0x508BB0, 5, Fast
         
         if(ErrorLevel = 1){
             GuiControlGet, key_auto_haste, Principal:, cbxKeyAutoHaste

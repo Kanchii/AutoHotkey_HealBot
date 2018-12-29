@@ -460,7 +460,7 @@ max(num*){
 	return max
 }
 
-
+/*
 ^x::
     goto run
 Return
@@ -470,6 +470,7 @@ Return
     PixelGetColor, pixelColor, %x%, %y%, RGB
     MsgBox, %pixelColor%
 Return
+*/
 
 abs(a){
     if(a < 0){
@@ -573,7 +574,7 @@ run:
         ;ImageSearch, pos_x_image, pos_y_image, %buff_x_1%, %buff_y_1%, %buff_x_2%, %buff_y_2%, Imagens\\haste_2.png
         PixelSearch, pos_x_image, pos_y_image, %buff_x_1%, %buff_y_1%, %buff_x_2%, %buff_y_2%, 0x508BB0, 2, Fast
         
-        if(ErrorLevel = 0){
+        if(ErrorLevel = 1){
             GuiControlGet, key_auto_haste, Principal:, cbxKeyAutoHaste
             send {%key_auto_haste%}
         }

@@ -24,52 +24,77 @@ global x1_lifeBar, x2_lifeBar, y1_lifeBar, y2_lifeBar
 global status := 0
 global tipoSelecao := 1
 
-global paralyze_x_1, paralyze_y_1, paralyze_x_2, paralyze_y_2
+global buff_x_1, buff_y_1, buff_x_2, buff_y_2
 
+; Título aba Heal
+Gui Principal: Add, Tab3, , Heal|Buff&&Debuff
 Gui Principal: Font, s15 Bold, Tahoma
-Gui Principal: Add, Text, x190 y5 w147 h25 +0x200, Rila Desgraça
+Gui Principal: Add, Text, x190 y35 w147 h25 +0x200, Heal Control
 Gui Principal: Font
-Gui Principal: Add, Text, x50 y43 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
-Gui Principal: Add, Text, x50 y80 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
-Gui Principal: Add, Text, x50 y117 w33 h23 +Disabled +0x200 vtxtKey3, Key 3:
-Gui Principal: Add, ComboBox, x94 y43 w55 +Disabled +Uppercase vcbxKey1, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Principal: Add, ComboBox, x94 y80 w55 +Disabled +Uppercase vcbxKey2, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Principal: Add, ComboBox, x94 y117 w55 +Disabled +Uppercase vcbxKey3, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Principal: Add, ComboBox, x195 y43 w136 +Disabled vcbxSpell1, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Principal: Add, Text, x162 y43 w30 h23 +Disabled +0x200 vtxtSpell1, Spell:
-Gui Principal: Add, Text, x162 y80 w30 h23 +Disabled +0x200 vtxtSpell2, Spell:
-Gui Principal: Add, ComboBox, x195 y80 w136 +Disabled vcbxSpell2, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Principal: Add, Text, x162 y117 w30 h23 +Disabled +0x200 vtxtSpell3, Spell:
-Gui Principal: Add, ComboBox, x195 y117 w136 +Disabled vcbxSpell3, Exura|Exura Gran|Exura Ico|Exura Gran Ico
-Gui Principal: Add, CheckBox, x28 y43 w15 h23 vCheck1 gCheckBox1
-Gui Principal: Add, CheckBox, x28 y80 w15 h23 vCheck2 gCheckBox2
-Gui Principal: Add, CheckBox, x28 y117 w15 h23 vCheck3 gCheckBox3
-Gui Principal: Add, Text, x14 y197 w55 h23 +0x200, Timer (ms):
+
+; Componentes principais da aba Heal
+Gui Principal: Add, Text, x50 y73 w33 h23 +Disabled +0x200 vtxtKey1, Key 1:
+Gui Principal: Add, Text, x50 y110 w33 h23 +Disabled +0x200 vtxtKey2, Key 2:
+Gui Principal: Add, Text, x50 y147 w33 h23 +Disabled +0x200 vtxtKey3, Key 3:
+Gui Principal: Add, ComboBox, x94 y73 w55 +Disabled +Uppercase vcbxKey1, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, ComboBox, x94 y110 w55 +Disabled +Uppercase vcbxKey2, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, ComboBox, x94 y147 w55 +Disabled +Uppercase vcbxKey3, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, ComboBox, x195 y73 w136 +Disabled vcbxSpell1, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Principal: Add, Text, x162 y73 w30 h23 +Disabled +0x200 vtxtSpell1, Spell:
+Gui Principal: Add, Text, x162 y110 w30 h23 +Disabled +0x200 vtxtSpell2, Spell:
+Gui Principal: Add, ComboBox, x195 y110 w136 +Disabled vcbxSpell2, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Principal: Add, Text, x162 y147 w30 h23 +Disabled +0x200 vtxtSpell3, Spell:
+Gui Principal: Add, ComboBox, x195 y147 w136 +Disabled vcbxSpell3, Exura|Exura Gran|Exura Ico|Exura Gran Ico
+Gui Principal: Add, CheckBox, x28 y73 w15 h23 vCheck1 gCheckBox1
+Gui Principal: Add, CheckBox, x28 y110 w15 h23 vCheck2 gCheckBox2
+Gui Principal: Add, CheckBox, x28 y147 w15 h23 vCheck3 gCheckBox3
+Gui Principal: Add, Slider, x346 y73 w120 h32 +Disabled +Tooltip vsliderLife1 gSlider1Move, 50
+Gui Principal: Add, Slider, x346 y110 w120 h32 +Disabled +Tooltip vsliderLife2 gSlider2Move, 50
+Gui Principal: Add, Slider, x346 y147 w120 h32 +Disabled +Tooltip vsliderLife3 gSlider3Move, 50
+Gui Principal: Add, Edit, x468 y73 w27 h22 +Disabled vedtLife1 gEdit1Modify
+Gui Principal: Add, Edit, x468 y110 w27 h22 +Disabled vedtLife2 gEdit2Modify
+Gui Principal: Add, Edit, x468 y147 w27 h22 +Disabled vedtLife3 gEdit3Modify
+
+; Tab dos Buffs e Debuffs
+Gui, Principal: Tab, 2
+Gui Principal: Font, s15 Bold, Tahoma
+Gui Principal: Add, Text, x185 y35 w147 h25 +0x200, Buff && Debuff
+Gui Principal: Font
+Gui Principal: Add, CheckBox, x28 y73 w15 h23 vcheckParalyze gCheckParalyze
+Gui Principal: Add, Text, x50 y73 w65 h23 +Disabled +0x200 vtxtParalyze, Anti-Paralyze:
+Gui Principal: Add, ComboBox, x120 y73 w55 +Disabled +Uppercase vcbxKeyParalyze, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, CheckBox, x28 y110 w15 h23 vcheckAutoHaste gCheckAutoHaste
+Gui Principal: Add, Text, x50 y110 w65 h23 +Disabled +0x200 vtxtAutoHaste, Auto Haste:
+Gui Principal: Add, ComboBox, x120 y110 w55 +Disabled +Uppercase vcbxKeyAutoHaste, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+; Gui Principal: Add, Text, x185 y73 w80 h23 +0x200 vtxtStatusParalyze +Disabled, Não configurado
+
+Gui, Principal: Tab
+; Botões
+Gui Principal: Add, Text, x14 y201 w55 h23 +0x200, Timer (ms):
 Gui Principal: Add, Edit, x69 y201 w70 h21 vtimer
 Gui Principal: Add, Button, x320 y201 w80 h23 +Disabled vstartPause gbtn_Start, &Start
 Gui Principal: Add, Button, x408 y201 w80 h23 +Disabled, &Save
 Gui Principal: Add, Button, x145 y201 w70 h21 vbtn_Timer gsetTimer, Set Timer
-Gui Principal: Add, Slider, x346 y43 w120 h32 +Disabled +Tooltip vsliderLife1 gSlider1Move, 50
-Gui Principal: Add, Slider, x346 y80 w120 h32 +Disabled +Tooltip vsliderLife2 gSlider2Move, 50
-Gui Principal: Add, Slider, x346 y117 w120 h32 +Disabled +Tooltip vsliderLife3 gSlider3Move, 50
-Gui Principal: Add, Edit, x468 y43 w27 h22 +Disabled vedtLife1 gEdit1Modify
-Gui Principal: Add, Edit, x468 y80 w27 h22 +Disabled vedtLife2 gEdit2Modify
-Gui Principal: Add, Edit, x468 y117 w27 h22 +Disabled vedtLife3 gEdit3Modify
-Gui Principal: Add, CheckBox, x28 y154 w15 h23 vcheckParalyze gCheckParalyze
-Gui Principal: Add, Text, x50 y154 w65 h23 +Disabled +0x200 vtxtParalyze, Anti-Paralyze
-Gui Principal: Add, ComboBox, x120 y154 w55 +Disabled +Uppercase vcbxKeyParalyze, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
-Gui Principal: Add, Text, x185 y154 w80 h23 +0x200 vtxtStatusParalyze +Disabled, Não configurado
+
+; StatusBar
 Gui Principal: Add, StatusBar, vstatusBar, Faltar definir a posição inicial e final da vida.
 
+; Tela de Configuração
+
+; Título
 Gui Configuracao: Font, s16 Bold, Tahoma
 Gui Configuracao: Add, Text, x28 y12 w154 h31 +0x200, Configurações
 Gui Configuracao: Font
+
+; Componentes principais da configuração
 Gui Configuracao: Add, Text, x18 y67 w65 h23 +0x200, Setar a vida:
 Gui Configuracao: Add, Radio, x100 y54 w120 h23 vpointClick gPointClickFunc, Point-and-Click
 Gui Configuracao: Add, Radio, x100 y84 w133 h23 vrectangle gRectangleFunc, Seleção com retângulo
 GuiControl, Configuracao:, rectangle, 1
 Gui Configuracao: Add, Text, x55 y128 w28 h23 +0x200, Som:
 Gui Configuracao: Add, Slider, x95 y130 w203 h32, 50
+
+; Botões
 Gui Configuracao: Add, Button, x229 y189 w80 h23 gBotaoVoltarConfFunc, &Voltar
 
 Gui Principal: +LabelGUIPrincipal
@@ -267,15 +292,15 @@ Return
         Return
 	}
     if(tipoSelecao = 0){
-        MouseGetPos, paralyze_x_1, paralyze_y_1
+        MouseGetPos, buff_x_1, buff_y_1
         if(varExist(paralyze_x_2)){
-            GuiControl, Principal:, txtStatusParalyze, Configurado
-            TrayTip, , Anti-Paralyze setado com sucesso!, , 0x1
+            ; GuiControl, Principal:, txtStatusParalyze, Configurado
+            TrayTip, , Buff & Debuff setado com sucesso!, , 0x1
         }
     } else {
-        LetUserSelectRect(paralyze_x_1, paralyze_y_1, paralyze_x_2, paralyze_y_2)
-        GuiControl, Principal:, txtStatusParalyze, Configurado
-        TrayTip, , Anti-Paralyze setado com sucesso!, , 0x1
+        LetUserSelectRect(buff_x_1, buff_y_1, buff_x_2, buff_y_2)
+        ; GuiControl, Principal:, txtStatusParalyze, Configurado
+        TrayTip, , Buff & Debuff setado com sucesso!, , 0x1
     }
 Return
 
@@ -283,10 +308,10 @@ Return
     if(tipoSelecao != 0){
         Return
     }
-    MouseGetPos, paralyze_x_2, paralyze_y_2
-    if(varExist(paralyze_x_1)){
-        GuiControl, Principal:, txtStatusParalyze, Configurado
-        TrayTip, , Anti-Paralyze setado com sucesso!, , 0x1
+    MouseGetPos, buff_x_2, buff_y_2
+    if(varExist(buff_x_1)){
+        ; GuiControl, Principal:, txtStatusParalyze, Configurado
+        TrayTip, , Buff & Debuff setado com sucesso!, , 0x1
     }
 Return
 
@@ -370,11 +395,24 @@ CheckParalyze:
     if(checkParalyze = 0){
         GuiControl, Principal:Disable, txtParalyze
         GuiControl, Principal:Disable, cbxKeyParalyze
-        GuiControl, Principal:Disable, txtStatusParalyze
+        ; GuiControl, Principal:Disable, txtStatusParalyze
     } else {
         GuiControl, Principal:Enabled, txtParalyze
         GuiControl, Principal:Enabled, cbxKeyParalyze
-        GuiControl, Principal:Enabled, txtStatusParalyze
+        ; GuiControl, Principal:Enabled, txtStatusParalyze
+    }
+Return
+
+CheckAutoHaste:
+    GuiControlGet, checkAutoHaste, Principal:
+    if(checkAutoHaste = 0){
+        GuiControl, Principal:Disable, txtAutoHaste
+        GuiControl, Principal:Disable, cbxKeyAutoHaste
+        ;GuiControl, Principal:Disable, txtStatusParalyze
+    } else {
+        GuiControl, Principal:Enabled, txtAutoHaste
+        GuiControl, Principal:Enabled, cbxKeyAutoHaste
+        ;GuiControl, Principal:Enabled, txtStatusParalyze
     }
 Return
 
@@ -422,7 +460,7 @@ max(num*){
 	return max
 }
 
-/*
+
 ^x::
     goto run
 Return
@@ -432,7 +470,7 @@ Return
     PixelGetColor, pixelColor, %x%, %y%, RGB
     MsgBox, %pixelColor%
 Return
-*/
+
 abs(a){
     if(a < 0){
         return (-a)
@@ -523,10 +561,21 @@ run:
     }
     GuiControlGet, checkParalyze, Principal:
     if(checkParalyze = 1){
-        PixelSearch, pos_x_image, pos_Y_image, %paralyze_x_1%, %paralyze_y_1%, %paralyze_x_2%, %paralyze_y_2%, 0x0000FF, 2, Fast ;images\paralyze.png
+        PixelSearch, pos_x_image, pos_y_image, %buff_x_1%, %buff_y_1%, %buff_x_2%, %buff_y_2%, 0x0000FF, 2, Fast ;images\paralyze.png
         if(ErrorLevel = 0){
             GuiControlGet, key_anti_paralyze, Principal:, cbxKeyParalyze
             send {%key_anti_paralyze%}
+        }
+    }
+    
+    GuiControlGet, checkAutoHaste, Principal:
+    if(checkAutoHaste = 1){
+        ;ImageSearch, pos_x_image, pos_y_image, %buff_x_1%, %buff_y_1%, %buff_x_2%, %buff_y_2%, Imagens\\haste_2.png
+        PixelSearch, pos_x_image, pos_y_image, %buff_x_1%, %buff_y_1%, %buff_x_2%, %buff_y_2%, 0x508BB0, 2, Fast
+        
+        if(ErrorLevel = 0){
+            GuiControlGet, key_auto_haste, Principal:, cbxKeyAutoHaste
+            send {%key_auto_haste%}
         }
     }
     

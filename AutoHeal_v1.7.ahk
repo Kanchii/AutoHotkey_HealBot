@@ -583,10 +583,6 @@ run:
 Return
 
 btn_Start:
-    if(!(varExist(x1_lifeBar) && varExist(x2_lifeBar))){
-        MsgBox, Você precisa setar a posição inicial (Ctrl+1) e final (Ctrl+2) da vida antes.
-        return
-    }
     ; Pause, Toggle, 1
     if(status = 0){
         status := 1

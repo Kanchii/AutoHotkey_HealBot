@@ -2,6 +2,8 @@
 #NoEnv
 #SingleInstance Force
 #InstallKeybdHook
+SetBatchLines -1
+ListLines Off
 
 CoordMode, Mouse ; Required: change coord mode to screen vs relative.
 CoordMode, Pixel ; Required: change coord mode to screen vs relative.

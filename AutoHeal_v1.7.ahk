@@ -9,7 +9,7 @@ CoordMode, Pixel ; Required: change coord mode to screen vs relative.
 SetWorkingDir %A_ScriptDir%
 
 Menu menuArquivo, Add, &Open...`tCtrl+O, MenuAbrir
-Menu menuArquivo, Disable, 1&
+Menu menuArquivo, Disable, 1&
 Menu menuArquivo, Add, &Configurações..., MenuConfiguracao
 ; Menu menuArquivo, Disable, 2&
 
@@ -268,12 +268,9 @@ Return
     if(status = 1){
         GuiControl, , statusBar, Falta definir a posição final da vida.
     } else if(status = 3){
-
     }
-
     MouseGetPos, x1_LifeBar, y1_LifeBar
 Return
-
 ^2::
     status |= (1 << 1)
     if(status = 2){
@@ -316,14 +313,12 @@ Return
 Return
 
 /*
-
 +^1::
     MouseGetPos, paralyze_x_1, paralyze_y_1
     if(varExist(paralyze_x_2)){
         GuiControl, , txtStatusParalyze, Configurado
     }
 Return
-
 +^2::
     MouseGetPos, paralyze_x_2, paralyze_y_2
     if(varExist(paralyze_x_1)){
@@ -464,7 +459,6 @@ max(num*){
 ^x::
     goto run
 Return
-
 ^z::
     MouseGetPos, x, y
     PixelGetColor, pixelColor, %x%, %y%, RGB

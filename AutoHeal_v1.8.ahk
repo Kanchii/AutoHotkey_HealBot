@@ -310,7 +310,7 @@ Return
     MouseGetPos, x2_lifeBar, y2_lifeBar
 Return
 
-~^z::
+^z::
     MouseGetPos, autoPush_x, autoPush_y
     GuiControl, Principal:, autoPush_Pos_Status, X = %autoPush_x%`nY = %autoPush_y%
 Return

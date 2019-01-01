@@ -15,7 +15,7 @@ Menu menuArquivo, Disable, 1&
 Menu menuArquivo, Add, &Configurações..., MenuConfiguracao
 ; Menu menuArquivo, Disable, 2&
 
-Menu menuArquivo, Add, &Update, MenuUpdate
+Menu menuArquivo, Add, Update, MenuUpdate
 Menu menuArquivo, Disable, 3&
 
 Menu menuArquivo, Add, &Sair`tEsc, MenuSair
@@ -190,7 +190,7 @@ LetUserSelectRect(ByRef X1, ByRef Y1, ByRef X2, ByRef Y2) {
 }
 
 verifyVersion:
-    ; SetTimer, verifyVersionOnRun, 300000
+    SetTimer, verifyVersionOnRun, 300000
     UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/version.txt, version_temp.txt
     FileRead, v_tmp, version_temp.txt
     FileRead, vers, version.txt
@@ -212,8 +212,9 @@ verifyVersionOnRun:
     if(v_tmp != vers){
         TrayTip, , Uma nova versão foi identificada. Atualize o macro e receba uma loli., , 0x1
         SetTimer, verifyVersionOnRun, off
-        Menu menuArquivo, Enable, &3
+        Menu menuArquivo, Enable, Update
     }
+    FileDelete, version_temp.txt    
 Return
 
 UpdateProgram:

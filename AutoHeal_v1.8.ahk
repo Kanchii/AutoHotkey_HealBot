@@ -326,9 +326,9 @@ Return
     }
     MouseGetPos, x, y
     Send, {Ctrl down}
-    MouseClickDrag, Left, x, y, autoPush_x, autoPush_y, 10
+    MouseClickDrag, Left, x, y, autoPush_x, autoPush_y, 1
     Send, {Ctrl up}
-    MouseMove, x, y, 10
+    MouseMove, x, y, 1
 Return
 
 ^+1::

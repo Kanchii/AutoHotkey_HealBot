@@ -460,7 +460,7 @@ max(num*){
 	return max
 }
 
-/*
+
 ^x::
     goto run
 Return
@@ -470,7 +470,7 @@ Return
     PixelGetColor, pixelColor, %x%, %y%, RGB
     MsgBox, %pixelColor%
 Return
-*/
+
 
 abs(a){
     if(a < 0){

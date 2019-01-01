@@ -243,7 +243,7 @@ MenuUpdate:
 Return
 
 MenuComandos:
-    MsgBox, Ctrl+1 -> Seta a posição inicial da barra de vida`nCtrl+2 -> Seta a posição final da barra de vida (Modo Point-and-Click)`nCtrl+Shift+1 -> Seta a posição inicial da barra de status`nCtrl+Shift+2 -> Seta a posição final (Modo Point-and-Click)`nAlt+X -> Pausa/Ativa o BOT`nCtrl+K -> Seta a posição do Drag&Drop`nCtrl+LButton* -> Ativa a função do Drag&Drop`nAlt+A -> Pausa/Ativa o Drag&Drop`n`n`n*LButton = Botão esquerdo do mouse
+    MsgBox, Ctrl+1 -> Seta a posição inicial da barra de vida`nCtrl+2 -> Seta a posição final da barra de vida (Modo Point-and-Click)`nCtrl+Shift+1 -> Seta a posição inicial da barra de status`nCtrl+Shift+2 -> Seta a posição final (Modo Point-and-Click)`nAlt+X -> Pausa/Ativa o BOT`nCtrl+Z -> Seta a posição do Drag&Drop`nCtrl+LButton* -> Ativa a função do Drag&Drop`nAlt+A -> Pausa/Ativa o Drag&Drop`n`n`n*LButton = Botão esquerdo do mouse
 Return
 
 MenuSobre:
@@ -254,11 +254,13 @@ clickAutoPush:
     if(auto_Push_status = 0){
         GuiControl, Principal:, btn_AutoPush, On
         GuiControl, Principal:Enabled, autoPush_Pos_Status
+        TrayTip, , D&D ativado, , 0x1
         auto_Push_status := 1
     }
     else {
         GuiControl, Principal:, btn_AutoPush, Off
         GuiControl, Principal:Disable, autoPush_Pos_Status
+        TrayTip, , D&D desativado, , 0x1
         auto_Push_status := 0        
     }
 Return
@@ -308,7 +310,7 @@ Return
     MouseGetPos, x2_lifeBar, y2_lifeBar
 Return
 
-^k::
+~^z::
     MouseGetPos, autoPush_x, autoPush_y
     GuiControl, Principal:, autoPush_Pos_Status, X = %autoPush_x%`nY = %autoPush_y%
 Return
@@ -324,9 +326,9 @@ Return
     }
     MouseGetPos, x, y
     Send, {Ctrl down}
-    MouseClickDrag, Left, x, y, autoPush_x, autoPush_y, 0
+    MouseClickDrag, Left, x, y, autoPush_x, autoPush_y, 10
     Send, {Ctrl up}
-    MouseMove, x, y, 0
+    MouseMove, x, y, 10
 Return
 
 ^+1::

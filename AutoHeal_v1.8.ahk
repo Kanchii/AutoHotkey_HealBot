@@ -2,8 +2,18 @@
 #NoEnv
 #SingleInstance Force
 #InstallKeybdHook
-SetBatchLines -1
+#MaxHotkeysPerInterval 99000000
+#HotkeyInterval 99000000
+#KeyHistory 0
 ListLines Off
+Process, Priority, , A
+SetBatchLines, -1
+SetKeyDelay, -1, -1
+SetMouseDelay, -1
+SetDefaultMouseSpeed, 0
+SetWinDelay, -1
+SetControlDelay, -1
+SendMode Input
 
 CoordMode, Mouse ; Required: change coord mode to screen vs relative.
 CoordMode, Pixel ; Required: change coord mode to screen vs relative.
@@ -11,7 +21,7 @@ CoordMode, Pixel ; Required: change coord mode to screen vs relative.
 SetWorkingDir %A_ScriptDir%
 
 Menu menuArquivo, Add, &Open...`tCtrl+O, MenuAbrir
-Menu menuArquivo, Disable, 1&
+Menu menuArquivo, Disable, 1&
 Menu menuArquivo, Add, &Configurações..., MenuConfiguracao
 ; Menu menuArquivo, Disable, 2&
 
@@ -62,6 +72,8 @@ Gui Principal: Add, Slider, x346 y147 w120 h32 +Disabled +Tooltip vsliderLife3 g
 Gui Principal: Add, Edit, x468 y73 w27 h22 +Disabled vedtLife1 gEdit1Modify
 Gui Principal: Add, Edit, x468 y110 w27 h22 +Disabled vedtLife2 gEdit2Modify
 Gui Principal: Add, Edit, x468 y147 w27 h22 +Disabled vedtLife3 gEdit3Modify
+Gui Principal: Add, Button, x28 y184 w80 h23 vset_Life gbtn_SetaLife, Life
+Gui Principal: Add, Button, x150 y184 w80 h23 vset_Mana gbtn_SetaMana, Mana
 
 ; Tab dos Buffs e Debuffs
 Gui, Principal: Tab, 2
@@ -81,11 +93,11 @@ Gui Principal: Add, text, x180 y140 w50 h50 vautoPush_Pos_Status +Disabled, X = 
 
 Gui, Principal: Tab
 ; Botões
-Gui Principal: Add, Text, x14 y201 w55 h23 +0x200, Timer (ms):
-Gui Principal: Add, Edit, x69 y201 w70 h21 vtimer
-Gui Principal: Add, Button, x320 y201 w80 h23 +Disabled vstartPause gbtn_Start, &Start
-Gui Principal: Add, Button, x408 y201 w80 h23 +Disabled, &Save
-Gui Principal: Add, Button, x145 y201 w70 h21 vbtn_Timer gsetTimer, Set Timer
+Gui Principal: Add, Text, x14 y220 w55 h23 +0x200, Timer (ms):
+Gui Principal: Add, Edit, x69 y220 w70 h21 vtimer
+Gui Principal: Add, Button, x320 y220 w80 h23 +Disabled vstartPause gbtn_Start, &Start
+Gui Principal: Add, Button, x408 y220 w80 h23 +Disabled, &Save
+Gui Principal: Add, Button, x145 y220 w70 h21 vbtn_Timer gsetTimer, Set Timer
 
 ; StatusBar
 Gui Principal: Add, StatusBar, vstatusBar, Faltar definir a posição inicial e final da vida.
@@ -111,7 +123,7 @@ Gui Configuracao: Add, Button, x229 y189 w80 h23 gBotaoVoltarConfFunc, &Voltar
 Gui Principal: +LabelGUIPrincipal
 Gui Configuracao: +LabelGUIConfiguracao
 
-Gui Principal: Show, w526 h255, Rila Desgraça
+Gui Principal: Show, w526 h275, Rila Desgraça
 goto verifyVersion
 Return
 
@@ -188,6 +200,17 @@ LetUserSelectRect(ByRef X1, ByRef Y1, ByRef X2, ByRef Y2) {
     lusr_return:
     Return
 }
+
+btn_SetaLife:
+    WinActivate Tibia
+    goto ^1
+Return
+
+btn_SetaMana:
+    ifWinExist, Tibia
+        WinActivate Tibia
+        ;goto ^3
+Return
 
 verifyVersion:
     SetTimer, verifyVersionOnRun, 300000
@@ -495,7 +518,6 @@ max(num*){
 ^x::
     goto run
 Return
-
 ^z::
     MouseGetPos, x, y
     PixelGetColor, pixelColor, %x%, %y%, RGB

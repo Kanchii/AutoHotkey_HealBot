@@ -271,7 +271,7 @@ btn_SetaUtility:
 Return
 
 verifyVersion:
-    SetTimer, verifyVersionOnRun, 300000
+    SetTimer, verifyVersionOnRun, 100000
     UrlDownloadToFile, https://raw.githubusercontent.com/Kanchii/AutoHotkey_HealBot/master/version.txt, version_temp.txt
     FileRead, v_tmp, version_temp.txt
     FileRead, vers, version.txt

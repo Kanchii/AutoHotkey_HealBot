@@ -21,7 +21,6 @@ CoordMode, Pixel ; Required: change coord mode to screen vs relative.
 
 SetWorkingDir %A_ScriptDir%
 
-FileInstall, Imagens, %A_ProgramFiles%\Imagens, 1
 
 Menu menuArquivo, Add, &Open...`tCtrl+O, MenuAbrir
 Menu menuArquivo, Disable, 1&
@@ -44,12 +43,14 @@ global x1_manaBar, x2_manaBar, y1_manaBar, y2_manaBar
 global status := 0
 global tipoSelecao := 1
 
+global training_status := 0
+
 global autoPush_x, auto_Push_y, auto_Push_status := 0
 
 global buff_x_1, buff_y_1, buff_x_2, buff_y_2
 
 ; Título aba Heal
-Gui Principal: Add, Tab3, , Heal|Utilities
+Gui Principal: Add, Tab3, , Heal|Utilities|Training
 Gui Principal: Font, s15 Bold, Tahoma
 Gui Principal: Add, Text, x190 y35 w147 h25 +0x200, Heal Control
 Gui Principal: Font
@@ -96,6 +97,26 @@ Gui Principal: Add, Button, x120 y145 w55 h20 vbtn_AutoPush gclickAutoPush, Off
 Gui Principal: Add, text, x180 y140 w50 h50 vautoPush_Pos_Status +Disabled, X = ?`nY = ?
 Gui Principal: Add, Button, x28 y184 w80 h23 vset_Utility gbtn_SetaUtility, Utility Bar
 
+Gui, Principal: Tab, 3
+Gui Principal: Font, s15 Bold, Tahoma
+Gui Principal: Add, Text, x205 y35 w147 h25 +0x200, Training
+Gui Principal: Font
+Gui Principal: Add, CheckBox, x28 y73 w15 h23 vCheckTraining1 gCheckBoxTraining1
+Gui Principal: Add, CheckBox, x28 y110 w15 h23 vCheckTraining2 gCheckBoxTraining2
+Gui Principal: Add, CheckBox, x28 y147 w15 h23 vCheckTraining3 gCheckBoxTraining3
+Gui Principal: Add, Text, x50 y73 w33 h23 +Disabled +0x200 vtxtKeyTraining1, Key 1:
+Gui Principal: Add, Text, x50 y110 w33 h23 +Disabled +0x200 vtxtKeyTraining2, Key 2:
+Gui Principal: Add, Text, x50 y147 w33 h23 +Disabled +0x200 vtxtKeyTraining3, Key 3:
+Gui Principal: Add, ComboBox, x94 y73 w55 +Disabled +Uppercase vcbxKeyTraining1, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, ComboBox, x94 y110 w55 +Disabled +Uppercase vcbxKeyTraining2, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, ComboBox, x94 y147 w55 +Disabled +Uppercase vcbxKeyTraining3, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, CheckBox, x28 y184 w15 h23 vCheckTraining4 gCheckBoxTraining4
+Gui Principal: Add, Text, x50 y184 w70 h23 +Disabled +0x200 vtxtKeyTraining4, Mana potion:
+Gui Principal: Add, ComboBox, x120 y184 w55 +Disabled +Uppercase vcbxKeyTraining4, F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12
+Gui Principal: Add, Slider, x185 y184 w120 h32 +Disabled +Tooltip vsliderLifeTraining4 gSliderTraining4Move, 50
+Gui Principal: Add, Edit, x315 y184 w27 h22 +Disabled vedtLifeTraining4 gEditTraining4Modify
+Gui Principal: Add, Button, x250 y105 w120 h22 vbtn_StartTraining gStartTrainingButton, Start Training
+Gui Principal: Add, Button, x360 y184 w80 h23 vset_ManaTraining gbtn_SetaManaTraining, Mana Bar
 Gui, Principal: Tab
 ; Botões
 Gui Principal: Add, Text, x14 y220 w55 h23 +0x200, Timer (ms):
@@ -138,10 +159,16 @@ varExist(ByRef v) { ; Requires 1.0.46+
 
 PointClickFunc:
     tipoSelecao := 0
+    GuiControl, Principal:Disable, set_Life
+    GuiControl, Principal:Disable, set_Mana
+    GuiControl, Principal:Disable, set_Utility
 Return
 
 RectangleFunc:
     tipoSelecao := 1
+    GuiControl, Principal:Enabled, set_Life
+    GuiControl, Principal:Enabled, set_Mana
+    GuiControl, Principal:Enabled, set_Utility
 Return
 
 BotaoVoltarConfFunc:
@@ -213,6 +240,8 @@ btn_SetaLife:
     {
         WinActivate
         goto ^1
+    } else {
+        MsgBox, O Tibia não se encontra aberto
     }
     
 Return
@@ -224,6 +253,8 @@ btn_SetaMana:
     {
         WinActivate
         goto ^3
+    } else {
+        MsgBox, O Tibia não se encontra aberto
     }
 Return
 
@@ -234,6 +265,8 @@ btn_SetaUtility:
     {
         WinActivate
         goto ^+1
+    } else {
+        MsgBox, O Tibia não se encontra aberto
     }
 Return
 
@@ -540,6 +573,54 @@ CheckAutoHaste:
     }
 Return
 
+CheckBoxTraining1:
+    GuiControlGet, CheckTraining1, Principal:
+    if(CheckTraining1 = 0){
+        GuiControl, Principal:Disable, txtKeyTraining1
+        GuiControl, Principal:Disable, cbxKeyTraining1
+    } else {
+        GuiControl, Principal:Enabled, txtKeyTraining1
+        GuiControl, Principal:Enabled, cbxKeyTraining1
+    }
+Return
+
+CheckBoxTraining2:
+    GuiControlGet, CheckTraining2, Principal:
+    if(CheckTraining2 = 0){
+        GuiControl, Principal:Disable, txtKeyTraining2
+        GuiControl, Principal:Disable, cbxKeyTraining2
+    } else {
+        GuiControl, Principal:Enabled, txtKeyTraining2
+        GuiControl, Principal:Enabled, cbxKeyTraining2
+    }
+Return
+
+CheckBoxTraining3:
+    GuiControlGet, CheckTraining3, Principal:
+    if(CheckTraining3 = 0){
+        GuiControl, Principal:Disable, txtKeyTraining3
+        GuiControl, Principal:Disable, cbxKeyTraining3
+    } else {
+        GuiControl, Principal:Enabled, txtKeyTraining3
+        GuiControl, Principal:Enabled, cbxKeyTraining3
+    }
+Return
+
+CheckBoxTraining4:
+    GuiControlGet, CheckTraining4, Principal:
+    if(CheckTraining4 = 0){
+        GuiControl, Principal:Disable, txtKeyTraining4
+        GuiControl, Principal:Disable, cbxKeyTraining4
+        GuiControl, Principal:Disable, sliderLifeTraining4
+        GuiControl, Principal:Disable, edtLifeTraining4
+    } else {
+        GuiControl, Principal:Enabled, txtKeyTraining4
+        GuiControl, Principal:Enabled, cbxKeyTraining4
+        GuiControl, Principal:Enabled, sliderLifeTraining4
+        GuiControl, Principal:Enabled, edtLifeTraining4
+    }
+Return
+
 Slider1Move:
     Gui, Principal:Submit, nohide
     GuiControl, Principal:, edtLife1, %sliderLife1%
@@ -553,6 +634,11 @@ Return
 Slider3Move:
     Gui, Principal:Submit, nohide
     GuiControl, Principal:, edtLife3, %sliderLife3%
+Return
+
+SliderTraining4Move:
+    Gui, Principal:Submit, nohide
+    GuiControl, Principal:, edtLifeTraining4, %sliderLifeTraining4%
 Return
 
 Edit1Modify:
@@ -570,6 +656,70 @@ Edit3Modify:
     GuiControl, Principal:, sliderLife3, %edtLife3%
 Return
 
+EditTraining4Modify:
+    Gui, Principal:Submit, nohide
+    GuiControl, Principal:, sliderLifeTraining4, %edtLifeTraining4%
+Return
+
+btn_SetaManaTraining:
+    goto btn_SetaMana
+Return
+
+StartTrainingButton:
+    if(training_status = 1){
+        SetTimer, training, Off
+        training_status := 0
+        GuiControl, Principal:, btn_StartTraining, Start Training
+    } else {
+        SetTimer, run, Off
+        SetTimer, training, 300
+        GuiControl, Principal:, btn_StartTraining, Pause Training
+        training_status := 1
+    }
+Return
+
+training:
+    WinGetTitle, windowName, A
+	IfNotInString, windowName, Tibia
+	{
+		Return
+	}
+    min_x_mana := min(x1_manaBar, x2_manaBar)
+    max_x_mana := max(x1_manaBar, x2_manaBar)
+    y_med_mana := (y1_manaBar + y2_manaBar) / 2
+    GuiControlGet, CheckTraining1, Principal:
+    if(CheckTraining1 = 1){
+        GuiControlGet, key1, Principal:, cbxKeyTraining1
+        send {%key1%}
+    }
+    GuiControlGet, CheckTraining2, Principal:
+    if(CheckTraining2 = 1){
+        GuiControlGet, key2, Principal:, cbxKeyTraining2
+        send {%key2%}
+    }
+    GuiControlGet, CheckTraining3, Principal:
+    if(CheckTraining3 = 1){
+        GuiControlGet, key3, Principal:, cbxKeyTraining3
+        send {%key3%}
+    }
+    
+    GuiControlGet, CheckTraining4, Principal:    
+    if(CheckTraining4 = 1){
+        GuiControlGet, edtLifeTraining4, Principal:
+        life4 := % edtLifeTraining4
+        ; x_pos := min_x + ((max_x - min_x) * life1) / 100.0
+        x_pos_mana := min_x_mana + ((max_x_mana - min_x_mana) * life4) / 100.0
+        ;y_pos := y_med
+        ;GuiControlGet, source1, Principal:, cbxSource1        
+        PixelGetColor, manaColor, x_pos_mana, y_med_mana, RGB
+        
+        if(isBlack(manaColor, "Mana") = 1){
+            GuiControlGet, key4, Principal:, cbxKeyTraining4
+            send {%key4%}
+        }
+    }
+Return
+
 min(num*){
     min := num[1]
 	Loop % num.MaxIndex()
@@ -584,10 +734,9 @@ max(num*){
 	return max
 }
 
-
+/*
 ^x::
     goto run
-    /*
     ImageSearch, xx, yy, %buff_x_1%, %buff_y_1%, %buff_x_2%, %buff_y_2%, Imagens\\haste_3.jpg
     if(ErrorLevel = 0){
         MsgBox, achou
@@ -596,8 +745,9 @@ max(num*){
     } else {
         MsgBox, Erro
     }
-    */
 Return
+*/
+
 /*
 ^z::
     MouseGetPos, x, y

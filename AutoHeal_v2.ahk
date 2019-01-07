@@ -119,11 +119,11 @@ Gui Principal: Add, Button, x250 y105 w120 h22 vbtn_StartTraining gStartTraining
 Gui Principal: Add, Button, x360 y184 w80 h23 vset_ManaTraining gbtn_SetaManaTraining, Mana Bar
 Gui, Principal: Tab
 ; Botões
-Gui Principal: Add, Text, x14 y220 w55 h23 +0x200, Timer (ms):
-Gui Principal: Add, Edit, x69 y220 w70 h21 vtimer
-Gui Principal: Add, Button, x320 y220 w80 h23 +Disabled vstartPause gbtn_Start, &Start
-Gui Principal: Add, Button, x408 y220 w80 h23 +Disabled, &Save
-Gui Principal: Add, Button, x145 y220 w70 h21 vbtn_Timer gsetTimer, Set Timer
+Gui Principal: Add, Text, x14 y227 w55 h23 +0x200, Timer (ms):
+Gui Principal: Add, Edit, x69 y227 w70 h21 vtimer
+Gui Principal: Add, Button, x320 y227 w80 h23 +Disabled vstartPause gbtn_Start, &Start
+Gui Principal: Add, Button, x408 y227 w80 h23 +Disabled, &Save
+Gui Principal: Add, Button, x145 y227 w70 h21 vbtn_Timer gsetTimer, Set Timer
 
 ; StatusBar
 Gui Principal: Add, StatusBar, vstatusBar, Faltar definir a posição inicial e final da vida.

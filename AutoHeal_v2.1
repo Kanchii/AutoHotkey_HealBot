@@ -97,8 +97,8 @@ Gui Principal: Add, Button, x120 y145 w55 h20 vbtn_AutoPush gclickAutoPush, Off
 Gui Principal: Add, text, x180 y140 w50 h50 vautoPush_Pos_Status +Disabled, X = ?`nY = ?
 Gui Principal: Add, Button, x28 y184 w80 h23 vset_Utility gbtn_SetaUtility, Utility Bar
 Gui Principal: Add, Text, x300 y73 w70 h23, Auto Fishing:
-Gui Principal: Add, Button, x370 y55 w70 h23, Fishing Rod
-Gui Principal: Add, Button, x370 y85 w70 h23, Water
+Gui Principal: Add, Button, x370 y55 w70 h23 gSetaFishingRod, Fishing Rod
+Gui Principal: Add, Button, x370 y85 w70 h23 gSetaWater, Water
 Gui Principal: Add, Button, x450 y73 w55 h20 vbtn_AutoFishing gclickAutoFishing, Start
 
 Gui, Principal: Tab, 3
@@ -158,6 +158,15 @@ goto verifyVersion
 Return
 
 clickAutoFishing:
+    
+Return
+
+SetaFishingRod:
+    
+Return
+
+SetaWater:
+    
 Return
 
 varExist(ByRef v) { ; Requires 1.0.46+
